@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomDateTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item> <!-- Цвет текста дат -->
+    </style>
+
+    <style name="CustomWeekDayTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item> <!-- Цвет дней недели -->
+    </style>
+    
+</resources>
