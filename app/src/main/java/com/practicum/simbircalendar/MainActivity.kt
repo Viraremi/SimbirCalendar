@@ -2,7 +2,6 @@ package com.practicum.simbircalendar
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -168,7 +167,6 @@ class MainActivity : AppCompatActivity() {
         val clndr = findViewById<CalendarView>(R.id.calendar)
         val eventRecycler = findViewById<RecyclerView>(R.id.event_recycler)
         eventsStorage = EventsSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE), gson)
-        eventsStorage.clear()
 
         eventRecycler.adapter = eventAdapter
         eventRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
