@@ -6,7 +6,7 @@
     </style>
 
     <style name="CustomWeekDayTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/black</item> <!-- Цвет дней недели -->
+        <item name="android:textColor">@color/white</item> <!-- Цвет дней недели -->
     </style>
     
 </resources>

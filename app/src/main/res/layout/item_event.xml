@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/dot"
         tools:text = "11111111"
+        android:textColor="@color/black"
         android:textSize="15sp"/>
 
     <ImageView
@@ -35,6 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/dot"
         tools:text = "22222222"
+        android:textColor="@color/black"
         android:textSize="15sp"/>
 
     <TextView
@@ -45,6 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/event_datastart"
         app:layout_constraintStart_toStartOf="parent"
         tools:text = "namenamenamenamenamenamenamename"
+        android:textColor="@color/black"
         android:textSize="24sp"/>
 
     <TextView
@@ -54,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/event_name"
         app:layout_constraintStart_toStartOf="@id/event_name"
         tools:text = "descriptiondescriptiondescriptiondescriptiondescription"
+        android:textColor="@color/black"
         android:textSize="18sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
