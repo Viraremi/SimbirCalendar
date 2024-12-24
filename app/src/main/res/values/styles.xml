@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="CustomDateTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/black</item> <!-- Цвет текста дат -->
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="CustomWeekDayTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/white</item> <!-- Цвет дней недели -->
+        <item name="android:textColor">@color/white</item>
     </style>
-    
+
+    <style name="view_title">
+        <item name="android:textSize">22sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/item_background</item>
+    </style>
+
+    <style name="add_title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
+    <style name="add_edit">
+        <item name="android:inputType">text</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+    </style>
+
+    <style name="add_btn">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:backgroundTint">@color/low_yellow</item>
+    </style>
+
+    <style name="item_time">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="item_name">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="item_description">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventAdd"
+    android:background="@color/orange">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/add_leftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/add_rightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/add_barrier_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_tags="tag_title_name, tag_title_description"
+        app:barrierDirection="end"/>
+
+    <TextView
+        android:id="@+id/add_view_title"
+        style="@style/view_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/event_new"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/add_rightGuideline"
+        app:layout_constraintStart_toEndOf="@id/add_leftGuideline"/>
+
+    <TextView
+        android:id="@+id/add_title_name"
+        app:layout_constraintTag="tag_title_name"
+        style="@style/add_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/event_title_name"
+        app:layout_constraintTop_toBottomOf="@id/add_view_title"
+        app:layout_constraintStart_toEndOf="@id/add_leftGuideline"/>
+
+    <TextView
+        android:id="@+id/add_title_description"
+        app:layout_constraintTag="tag_title_description"
+        style="@style/add_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/event_title_description"
+        app:layout_constraintTop_toBottomOf="@id/add_title_name"
+        app:layout_constraintStart_toEndOf="@id/add_leftGuideline"/>
+
+    <EditText
+        android:id="@+id/add_edit_name"
+        style="@style/add_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/event_title_name"
+        app:layout_constraintTop_toBottomOf="@id/add_view_title"
+        app:layout_constraintEnd_toStartOf="@id/add_rightGuideline"
+        app:layout_constraintStart_toEndOf="@id/add_barrier_title"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_title_name"/>
+
+    <EditText
+        android:id="@+id/add_edit_description"
+        style="@style/add_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/event_title_description"
+        app:layout_constraintTop_toBottomOf="@id/add_edit_name"
+        app:layout_constraintEnd_toStartOf="@id/add_rightGuideline"
+        app:layout_constraintStart_toEndOf="@id/add_barrier_title"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_title_description"/>
+
+    <Button
+        android:id="@+id/add_btn_done"
+        style="@style/add_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

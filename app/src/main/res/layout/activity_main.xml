@@ -7,7 +7,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@color/orange">
+    android:background="@color/orange"
+    android:paddingHorizontal="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/view_title"
+        android:text="@string/event_main"/>
 
     <CalendarView
         android:id="@+id/calendar"
@@ -19,6 +26,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"/>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

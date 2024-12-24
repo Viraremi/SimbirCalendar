@@ -12,8 +12,8 @@ class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     init {
         eventName = itemView.findViewById(R.id.event_name)
         eventDescription = itemView.findViewById(R.id.event_description)
-        eventStart = itemView.findViewById(R.id.event_datastart)
-        eventEnd = itemView.findViewById(R.id.event_dataend)
+        eventStart = itemView.findViewById(R.id.event_datestart)
+        eventEnd = itemView.findViewById(R.id.event_dateend)
     }
 
     fun bind(model: Event){
