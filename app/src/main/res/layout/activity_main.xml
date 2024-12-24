@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:dateTextAppearance="@style/CustomDateTextAppearance"
         android:weekDayTextAppearance="@style/CustomWeekDayTextAppearance"
-        android:layout_marginHorizontal="16dp"/>
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_recycler"

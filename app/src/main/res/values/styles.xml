@@ -5,7 +5,7 @@
     </style>
 
     <style name="CustomWeekDayTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="view_title">
@@ -14,17 +14,21 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/item_background</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="add_title">
         <item name="android:textSize">20sp</item>
         <item name="android:paddingVertical">8dp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="add_edit">
         <item name="android:inputType">text</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
     </style>
 
     <style name="add_btn">
