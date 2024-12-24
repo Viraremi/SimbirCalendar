@@ -51,7 +51,7 @@ class EventAdd : AppCompatActivity() {
 
         btnDone.setOnClickListener{
             newEvent = Event(
-                0,
+                eventsStorage.getCurrentID(),
                 Timestamp(date.time + eventPos * 3600000),
                 Timestamp(date.time + (eventPos+1) * 3600000),
                 editName.text.toString(),

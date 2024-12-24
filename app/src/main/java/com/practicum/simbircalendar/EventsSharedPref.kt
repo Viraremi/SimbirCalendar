@@ -12,6 +12,7 @@ class EventsSharedPref (
     private val sharedPref: SharedPreferences,
     private val gson: Gson
 ) {
+    private var currenSize = 0
     private var eventsList = mutableListOf<Event>()
     fun getEvents(): MutableList<Event> {
         refresh()
@@ -46,6 +47,12 @@ class EventsSharedPref (
     fun refresh(){
         val json = sharedPref.getString(EVENTS_KEY, null)
         eventsList = gson.fromJson(json, object : TypeToken<MutableList<Event>>() {}.type) ?: mutableListOf<Event>()
+        currenSize = eventsList.size
+    }
+
+    fun getCurrentID(): Int{
+        refresh()
+        return currenSize
     }
 
     @SuppressLint("SimpleDateFormat")
