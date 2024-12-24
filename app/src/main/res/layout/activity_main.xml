@@ -7,24 +7,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@color/orange"
-    android:paddingHorizontal="16dp">
+    android:background="@color/orange">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/view_title"
-        android:text="@string/event_main"/>
+        android:text="@string/event_main"
+        android:layout_marginHorizontal="16dp"/>
 
     <CalendarView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dateTextAppearance="@style/CustomDateTextAppearance"
-        android:weekDayTextAppearance="@style/CustomWeekDayTextAppearance"/>
+        android:weekDayTextAppearance="@style/CustomWeekDayTextAppearance"
+        android:layout_marginHorizontal="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/event_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"/>
 </LinearLayout>

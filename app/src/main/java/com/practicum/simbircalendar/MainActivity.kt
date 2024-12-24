@@ -1,9 +1,10 @@
 package com.practicum.simbircalendar
 
-import android.annotation.SuppressLint
-import android.icu.text.SimpleDateFormat
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.CalendarView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import java.sql.Timestamp
 import java.time.LocalDate
-import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
     companion object{
-        private const val EVENTS = "events"
+        const val EVENTS = "events"
+        const val REQUES_CODE = 1
         private val NO_EVENT_LIST = listOf<Event>(
             Event(0,
                 Timestamp(0*3600000),
@@ -144,8 +145,16 @@ class MainActivity : AppCompatActivity() {
             )
         )
     }
+    var selectedDay = ""
     private val gson = Gson()
+    lateinit var eventsStorage: EventsSharedPref
     private var eventAdapterList = mutableListOf<Event>()
+    val eventAdapter = EventAdapter(eventAdapterList) {position: Int ->
+        val eventAddIntent = Intent(this, EventAdd::class.java)
+        eventAddIntent.putExtra("pos", position)
+        eventAddIntent.putExtra("selectedDay", selectedDay)
+        startActivityForResult(eventAddIntent, REQUES_CODE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -156,24 +165,23 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         val clndr = findViewById<CalendarView>(R.id.calendar)
         val eventRecycler = findViewById<RecyclerView>(R.id.event_recycler)
-        val eventAdapter = EventAdapter(eventAdapterList)
-        val eventsStorage = EventsSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE), gson)
-        val events = eventsStorage.getEvents()
+        eventsStorage = EventsSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE), gson)
+        eventsStorage.clear()
 
         eventRecycler.adapter = eventAdapter
         eventRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         clndr.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val events = eventsStorage.getEvents()
             eventAdapterList.clear()
             eventAdapterList.addAll(NO_EVENT_LIST)
-            val selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString()
+            selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString()
             for (item in events){
-                val day = getDateFromStamp(item.data_start)
+                val day = eventsStorage.getDateFromStamp(item.data_start)
                 if (day == selectedDay){
-                    val index = getHoursFromStamp(item.data_start).toInt() - 1
+                    val index = eventsStorage.getHoursFromStamp(item.data_start).toInt()
                     eventAdapterList[index] = item
                 }
             }
@@ -181,17 +189,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getDateFromStamp(stamp: Timestamp): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val dataTime = Date(stamp.time)
-        return sdf.format(dataTime)
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    private fun getHoursFromStamp(stamp: Timestamp): String {
-        val sdf = SimpleDateFormat("HH")
-        val dataTime = Date(stamp.time)
-        return sdf.format(dataTime)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            val index = data!!.getIntExtra("pos", 0)
+            val event_id = data.getIntExtra("event_id", 0)
+            eventAdapterList[index] = eventsStorage.getEvents()[0]
+            eventAdapter.notifyDataSetChanged()
+            Toast.makeText(this@MainActivity, "Дело создано", Toast.LENGTH_SHORT).show()
+        }
     }
 }

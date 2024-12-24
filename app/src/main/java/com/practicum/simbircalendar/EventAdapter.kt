@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class EventAdapter(
-    private val events: List<Event>
+    private val events: List<Event>,
+    private val click: (Int) -> Unit
 ) : RecyclerView.Adapter<EventViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
@@ -18,5 +19,8 @@ class EventAdapter(
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.bind(events[position])
+        holder.itemView.setOnClickListener{
+            click(position)
+        }
     }
 }

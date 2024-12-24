@@ -45,6 +45,7 @@
         style="@style/add_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/event_title_name"
         app:layout_constraintTop_toBottomOf="@id/add_view_title"
         app:layout_constraintStart_toEndOf="@id/add_leftGuideline"/>
@@ -64,6 +65,7 @@
         style="@style/add_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="@string/event_title_name"
         app:layout_constraintTop_toBottomOf="@id/add_view_title"
         app:layout_constraintEnd_toStartOf="@id/add_rightGuideline"
@@ -87,6 +89,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/done"
+        app:layout_constraintBottom_toTopOf="@id/add_btn_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/add_btn_cancel"
+        style="@style/add_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

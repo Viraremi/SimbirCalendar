@@ -1,6 +1,6 @@
 package com.practicum.simbircalendar
 
-import android.content.ClipDescription
+import java.io.Serializable
 import java.sql.Timestamp
 
 data class Event (
@@ -9,5 +9,5 @@ data class Event (
     val data_end: Timestamp,
     val name: String,
     val description: String,
-){
+) : Serializable{
 }
