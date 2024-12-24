@@ -21,17 +21,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/events_is_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="На сегодня дел нет!"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp"
-        android:gravity="center"
-        android:background="@drawable/item_background"
-        android:visibility="visible"/>
 </LinearLayout>
