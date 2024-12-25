@@ -1,6 +1,8 @@
 package com.practicum.simbircalendar
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.widget.CalendarView
 import android.widget.Toast
@@ -20,131 +22,22 @@ class MainActivity : AppCompatActivity() {
     companion object{
         const val EVENTS = "events"
         const val REQUES_CODE = 1
-        private val NO_EVENT_LIST = listOf<Event>(
-            Event(0,
-                Timestamp(0*3600000),
-                Timestamp(1*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(1*3600000),
-                Timestamp(2*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(2*3600000),
-                Timestamp(3*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(3*3600000),
-                Timestamp(4*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(4*3600000),
-                Timestamp(5*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(5*3600000),
-                Timestamp(6*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(6*3600000),
-                Timestamp(7*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(7*3600000),
-                Timestamp(8*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(8*3600000),
-                Timestamp(9*3600000),
-                "",
-                ""
-            ),
-            Event(0,
-                Timestamp(9*3600000),
-                Timestamp(10*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(10*3600000),
-                Timestamp(11*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(11*3600000),
-                Timestamp(12*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(12*3600000),
-                Timestamp(13*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(13*3600000),
-                Timestamp(14*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(14*3600000),
-                Timestamp(15*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(15*3600000),
-                Timestamp(16*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(16*3600000),
-                Timestamp(17*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(17*3600000),
-                Timestamp(18*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(18*3600000),
-                Timestamp(19*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(19*3600000),
-                Timestamp(20*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(20*3600000),
-                Timestamp(21*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(21*3600000),
-                Timestamp(22*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(22*3600000),
-                Timestamp(23*3600000),
-                "",
-                ""
-            ),Event(0,
-                Timestamp(23*3600000),
-                Timestamp(-1 + 24*3600000),
-                "",
-                ""
-            )
-        )
+        private var NO_EVENT_LIST = mutableListOf<Event>()
+        @SuppressLint("SimpleDateFormat")
+        private fun noEventListCreate(){
+            val today = TimestampConvert.getDate(Timestamp(System.currentTimeMillis()))
+            for (i in 0..23){
+                val longI = i.toLong()
+                NO_EVENT_LIST.add(NO_EVENT_LIST.size, Event(i,
+                    Timestamp(SimpleDateFormat("yyyy-MM-dd").parse(today).time + longI*3600000),
+                    Timestamp(SimpleDateFormat("yyyy-MM-dd").parse(today).time + (longI+1)*3600000),
+                    "",
+                    ""
+                ))
+            }
+        }
     }
+
     var selectedDay = ""
     private val gson = Gson()
     lateinit var eventsStorage: EventsSharedPref
@@ -168,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
         val clndr = findViewById<CalendarView>(R.id.calendar)
         val eventRecycler = findViewById<RecyclerView>(R.id.event_recycler)
+        noEventListCreate()
         eventsStorage = EventsSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE), gson)
 
         eventRecycler.adapter = eventAdapter
