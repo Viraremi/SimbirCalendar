@@ -19,7 +19,7 @@ class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(model: Event){
         eventName.text = model.name
         eventDescription.text = model.description
-        eventStart.text = model.data_start.toString().substring(10,16)
-        eventEnd.text = model.data_end.toString().substring(10,16)
+        eventStart.text = TimestampConvert.getTime(model.data_start)
+        eventEnd.text = TimestampConvert.getTime(model.data_end)
     }
 }

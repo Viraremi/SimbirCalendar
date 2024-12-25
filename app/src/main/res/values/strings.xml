@@ -3,7 +3,6 @@
     <string name="event_title_name">Название</string>
     <string name="event_title_description">Описание</string>
     <string name="event_title_date">Дата</string>
-    <string name="event_new">Новое дело</string>
     <string name="event_main">Ежедневник</string>
     <string name="done">Готово</string>
     <string name="cancel">Отмена</string>

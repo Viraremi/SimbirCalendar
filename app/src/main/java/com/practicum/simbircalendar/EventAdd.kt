@@ -40,14 +40,24 @@ class EventAdd : AppCompatActivity() {
         }
         eventPos = intent.getIntExtra("pos", 0)
         selectedDay = intent.getStringExtra("selectedDay")
+        val intentEvent = intent.getSerializableExtra("event") as Event
+
+        val viewTimeStart = findViewById<TextView>(R.id.add_title_time_start)
+        val viewTimeEnd = findViewById<TextView>(R.id.add_title_time_end)
         val editName = findViewById<EditText>(R.id.add_edit_name)
         val editDescription = findViewById<EditText>(R.id.add_edit_description)
         val editDate = findViewById<TextView>(R.id.add_edit_date)
         val btnDone = findViewById<Button>(R.id.add_btn_done)
         val btnCancel = findViewById<Button>(R.id.add_btn_cancel)
+
         val eventsStorage = EventsSharedPref(getSharedPreferences(MainActivity.EVENTS, MODE_PRIVATE), Gson())
         val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDay)
         editDate.text = selectedDay
+
+        viewTimeStart.text = TimestampConvert.getTime(intentEvent.data_start)
+        viewTimeEnd.text = TimestampConvert.getTime(intentEvent.data_end)
+        editName.setText(intentEvent.name)
+        editDescription.setText(intentEvent.description)
 
         btnDone.setOnClickListener{
             newEvent = Event(
@@ -70,7 +80,6 @@ class EventAdd : AppCompatActivity() {
     override fun finish() {
         val intent = Intent()
         intent.putExtra("pos", eventPos)
-        intent.putExtra("event_id", newEvent.id)
         val requestCode = if (allGood) RESULT_OK else RESULT_CANCELED
         setResult(requestCode, intent)
         super.finish()

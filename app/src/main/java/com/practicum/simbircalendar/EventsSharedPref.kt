@@ -54,18 +54,4 @@ class EventsSharedPref (
         refresh()
         return currenSize
     }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getDateFromStamp(stamp: Timestamp): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val dataTime = Date(stamp.time)
-        return sdf.format(dataTime)
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getHoursFromStamp(stamp: Timestamp): String {
-        val sdf = SimpleDateFormat("HH")
-        val dataTime = Date(stamp.time)
-        return sdf.format(dataTime)
-    }
 }

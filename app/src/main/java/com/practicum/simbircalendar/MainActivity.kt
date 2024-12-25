@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import java.io.Serializable
 import java.sql.Timestamp
 import java.time.LocalDate
 
@@ -148,8 +149,9 @@ class MainActivity : AppCompatActivity() {
     private val gson = Gson()
     lateinit var eventsStorage: EventsSharedPref
     private var eventAdapterList = mutableListOf<Event>()
-    val eventAdapter = EventAdapter(eventAdapterList) {position: Int ->
+    val eventAdapter = EventAdapter(eventAdapterList) {event: Event, position: Int ->
         val eventAddIntent = Intent(this, EventAdd::class.java)
+        eventAddIntent.putExtra("event", event as Serializable)
         eventAddIntent.putExtra("pos", position)
         eventAddIntent.putExtra("selectedDay", selectedDay)
         startActivityForResult(eventAddIntent, REQUES_CODE)
@@ -177,9 +179,9 @@ class MainActivity : AppCompatActivity() {
             eventAdapterList.addAll(NO_EVENT_LIST)
             selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString()
             for (item in events){
-                val day = eventsStorage.getDateFromStamp(item.data_start)
+                val day = TimestampConvert.getDate(item.data_start)
                 if (day == selectedDay){
-                    val index = eventsStorage.getHoursFromStamp(item.data_start).toInt()
+                    val index = TimestampConvert.getHours(item.data_start).toInt()
                     eventAdapterList[index] = item
                 }
             }
@@ -191,9 +193,8 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             val index = data!!.getIntExtra("pos", 0)
-            val event_id = data.getIntExtra("event_id", 0)
             eventAdapterList[index] = eventsStorage.getEvents()[0]
-            eventAdapter.notifyDataSetChanged()
+            eventAdapter.notifyItemChanged(index)
             Toast.makeText(this@MainActivity, "Дело создано", Toast.LENGTH_SHORT).show()
         }
     }
