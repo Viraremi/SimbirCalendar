@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     var selectedDay = ""
-    private val gson = Gson()
-    lateinit var eventsStorage: EventsSharedPref
     private var eventAdapterList = mutableListOf<Event>()
     val eventAdapter = EventAdapter(eventAdapterList) {event: Event, position: Int ->
         val eventAddIntent = Intent(this, EventAdd::class.java)
@@ -62,13 +60,13 @@ class MainActivity : AppCompatActivity() {
         val clndr = findViewById<CalendarView>(R.id.calendar)
         val eventRecycler = findViewById<RecyclerView>(R.id.event_recycler)
         noEventListCreate()
-        eventsStorage = EventsSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE), gson)
+        EventsSharedPref.setSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE))
 
         eventRecycler.adapter = eventAdapter
         eventRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         clndr.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val events = eventsStorage.getEvents()
+            val events = EventsSharedPref.getEvents()
             eventAdapterList.clear()
             eventAdapterList.addAll(NO_EVENT_LIST)
             selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString()
@@ -87,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             val index = data!!.getIntExtra("pos", 0)
-            eventAdapterList[index] = eventsStorage.getEvents()[0]
+            eventAdapterList[index] = EventsSharedPref.getEvents()[0]
             eventAdapter.notifyItemChanged(index)
             Toast.makeText(this@MainActivity, "Дело создано", Toast.LENGTH_SHORT).show()
         }

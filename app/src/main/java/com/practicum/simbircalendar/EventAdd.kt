@@ -11,7 +11,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.gson.Gson
 import java.sql.Timestamp
 
 class EventAdd : AppCompatActivity() {
@@ -50,7 +49,6 @@ class EventAdd : AppCompatActivity() {
         val btnDone = findViewById<Button>(R.id.add_btn_done)
         val btnCancel = findViewById<Button>(R.id.add_btn_cancel)
 
-        val eventsStorage = EventsSharedPref(getSharedPreferences(MainActivity.EVENTS, MODE_PRIVATE), Gson())
         val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDay)
         editDate.text = selectedDay
 
@@ -61,13 +59,13 @@ class EventAdd : AppCompatActivity() {
 
         btnDone.setOnClickListener{
             newEvent = Event(
-                eventsStorage.getCurrentID(),
+                EventsSharedPref.getCurrentID(),
                 Timestamp(date.time + eventPos * 3600000),
                 Timestamp(date.time + (eventPos+1) * 3600000),
                 editName.text.toString(),
                 editDescription.text.toString()
             )
-            eventsStorage.add(newEvent)
+            EventsSharedPref.add(newEvent)
             allGood = true
             finish()
         }
