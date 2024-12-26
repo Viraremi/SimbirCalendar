@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         //функция создающая список пустых дел
         @SuppressLint("SimpleDateFormat")
         private fun noEventListCreate(today: String){ // Формат строки: yyyy-MM-dd
+            NO_EVENT_LIST.clear()
             for (i in 0..23){
                 val longI = i.toLong()
                 NO_EVENT_LIST.add(NO_EVENT_LIST.size, Event(i,
