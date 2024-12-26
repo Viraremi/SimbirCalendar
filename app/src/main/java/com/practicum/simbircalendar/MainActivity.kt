@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     companion object{
         const val EVENTS = "events"
         const val REQUES_CODE = 1
+        //функция создающая список пустых дел
         private var NO_EVENT_LIST = mutableListOf<Event>()
         @SuppressLint("SimpleDateFormat")
         private fun noEventListCreate(){
@@ -57,14 +58,22 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        //View переменные
         val clndr = findViewById<CalendarView>(R.id.calendar)
         val eventRecycler = findViewById<RecyclerView>(R.id.event_recycler)
+
+        //Создаём список пустых дел для отображения ячеек списка дел
         noEventListCreate()
+
+        //Задаём SharedPreferences
         EventsSharedPref.setSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE))
 
+        //Устанавливаем adapter и layoutManager для RecyclerView
         eventRecycler.adapter = eventAdapter
         eventRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        //Обработка выбора даты на календаре
         clndr.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val events = EventsSharedPref.getEvents()
             eventAdapterList.clear()
@@ -81,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Обновляем данные и список дел на экране после добавления нового дела
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {

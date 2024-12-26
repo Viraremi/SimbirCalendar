@@ -5,7 +5,7 @@ import android.icu.text.SimpleDateFormat
 import java.sql.Timestamp
 import java.util.Date
 
-object TimestampConvert {
+object TimestampConvert { //Singleton класс отвечающий за получения строк с датой из Timestamp
     @SuppressLint("SimpleDateFormat")
     fun getDate(stamp: Timestamp): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd")

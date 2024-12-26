@@ -25,6 +25,7 @@ class EventAdd : AppCompatActivity() {
         setContentView(R.layout.activity_event_add)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            //Отступы при открытой клавиатуре
             val ime = insets.getInsets((WindowInsetsCompat.Type.ime()))
             val paddingBottom = if (ime.bottom > 0) {
                 ime.bottom
@@ -37,10 +38,13 @@ class EventAdd : AppCompatActivity() {
             )
             insets
         }
+
+        //Данные из intent
         eventPos = intent.getIntExtra("pos", 0)
         selectedDay = intent.getStringExtra("selectedDay")
         val intentEvent = intent.getSerializableExtra("event") as Event
 
+        //View переменные
         val viewTimeStart = findViewById<TextView>(R.id.add_title_time_start)
         val viewTimeEnd = findViewById<TextView>(R.id.add_title_time_end)
         val editName = findViewById<EditText>(R.id.add_edit_name)
@@ -49,13 +53,14 @@ class EventAdd : AppCompatActivity() {
         val btnDone = findViewById<Button>(R.id.add_btn_done)
         val btnCancel = findViewById<Button>(R.id.add_btn_cancel)
 
-        val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDay)
-        editDate.text = selectedDay
-
+        //Выводим полученные данные на экран
         viewTimeStart.text = TimestampConvert.getTime(intentEvent.data_start)
         viewTimeEnd.text = TimestampConvert.getTime(intentEvent.data_end)
         editName.setText(intentEvent.name)
         editDescription.setText(intentEvent.description)
+
+        val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDay)
+        editDate.text = selectedDay
 
         btnDone.setOnClickListener{
             newEvent = Event(
@@ -75,6 +80,7 @@ class EventAdd : AppCompatActivity() {
         }
     }
 
+    //Возвращаем ответ в MainActivity
     override fun finish() {
         val intent = Intent()
         intent.putExtra("pos", eventPos)
