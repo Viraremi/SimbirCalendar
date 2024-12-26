@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import java.io.Serializable
 import java.sql.Timestamp
 import java.time.LocalDate
@@ -21,12 +20,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         const val EVENTS = "events"
-        const val REQUES_CODE = 1
-        //функция создающая список пустых дел
+        const val REQUEST_CODE = 1
         private var NO_EVENT_LIST = mutableListOf<Event>()
+        //функция создающая список пустых дел
         @SuppressLint("SimpleDateFormat")
-        private fun noEventListCreate(){
-            val today = TimestampConvert.getDate(Timestamp(System.currentTimeMillis()))
+        private fun noEventListCreate(today: String){ // Формат строки: yyyy-MM-dd
             for (i in 0..23){
                 val longI = i.toLong()
                 NO_EVENT_LIST.add(NO_EVENT_LIST.size, Event(i,
@@ -39,14 +37,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    var selectedDay = ""
+    var selectedDay = TimestampConvert.getDate(Timestamp(System.currentTimeMillis()))
     private var eventAdapterList = mutableListOf<Event>()
     val eventAdapter = EventAdapter(eventAdapterList) {event: Event, position: Int ->
         val eventAddIntent = Intent(this, EventAdd::class.java)
         eventAddIntent.putExtra("event", event as Serializable)
         eventAddIntent.putExtra("pos", position)
-        eventAddIntent.putExtra("selectedDay", selectedDay)
-        startActivityForResult(eventAddIntent, REQUES_CODE)
+        startActivityForResult(eventAddIntent, REQUEST_CODE)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val eventRecycler = findViewById<RecyclerView>(R.id.event_recycler)
 
         //Создаём список пустых дел для отображения ячеек списка дел
-        noEventListCreate()
+        noEventListCreate(selectedDay)
 
         //Задаём SharedPreferences
         EventsSharedPref.setSharedPref(getSharedPreferences(EVENTS, MODE_PRIVATE))
@@ -75,10 +72,11 @@ class MainActivity : AppCompatActivity() {
 
         //Обработка выбора даты на календаре
         clndr.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val events = EventsSharedPref.getEvents()
+            selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString() //Получаем выбранный день
+            noEventListCreate(selectedDay) //Обновляем список пустых дел для получения Timestamp для каждого часа выбранного дня
             eventAdapterList.clear()
             eventAdapterList.addAll(NO_EVENT_LIST)
-            selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString()
+            val events = EventsSharedPref.getEvents()
             for (item in events){
                 val day = TimestampConvert.getDate(item.data_start)
                 if (day == selectedDay){

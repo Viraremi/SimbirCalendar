@@ -41,6 +41,7 @@ object EventsSharedPref {
         save()
     }
 
+    //В проекте не используется. Нужен для отладки
     fun clear(){
         if (sharedPrefIsNull) throw NullPointerException(errMsg)
         eventsList.clear()

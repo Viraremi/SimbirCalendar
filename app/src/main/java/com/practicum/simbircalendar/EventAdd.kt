@@ -2,7 +2,6 @@ package com.practicum.simbircalendar
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,13 +10,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.sql.Timestamp
 
 class EventAdd : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     lateinit var newEvent: Event
     var eventPos: Int = 0
-    var selectedDay: String? = ""
     var allGood = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +38,6 @@ class EventAdd : AppCompatActivity() {
 
         //Данные из intent
         eventPos = intent.getIntExtra("pos", 0)
-        selectedDay = intent.getStringExtra("selectedDay")
         val intentEvent = intent.getSerializableExtra("event") as Event
 
         //View переменные
@@ -58,15 +54,14 @@ class EventAdd : AppCompatActivity() {
         viewTimeEnd.text = TimestampConvert.getTime(intentEvent.data_end)
         editName.setText(intentEvent.name)
         editDescription.setText(intentEvent.description)
+        editDate.text = TimestampConvert.getDate(intentEvent.data_start)
 
-        val date = SimpleDateFormat("yyyy-MM-dd").parse(selectedDay)
-        editDate.text = selectedDay
-
+        //Кнопка Готово
         btnDone.setOnClickListener{
             newEvent = Event(
                 EventsSharedPref.getCurrentID(),
-                Timestamp(date.time + eventPos * 3600000),
-                Timestamp(date.time + (eventPos+1) * 3600000),
+                intentEvent.data_start,
+                intentEvent.data_end,
                 editName.text.toString(),
                 editDescription.text.toString()
             )
@@ -75,6 +70,7 @@ class EventAdd : AppCompatActivity() {
             finish()
         }
 
+        //Кнопка Отмена
         btnCancel.setOnClickListener {
             finish()
         }
