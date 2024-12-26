@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
             for (i in 0..23){
                 val longI = i.toLong()
                 NO_EVENT_LIST.add(NO_EVENT_LIST.size, Event(i,
-                    Timestamp(SimpleDateFormat("yyyy-MM-dd").parse(today).time + longI*3600000),
-                    Timestamp(SimpleDateFormat("yyyy-MM-dd").parse(today).time + (longI+1)*3600000),
+                    SimpleDateFormat("yyyy-MM-dd").parse(today).time + longI*3600000,
+                    SimpleDateFormat("yyyy-MM-dd").parse(today).time + (longI+1)*3600000,
                     "",
                     ""
                 ))
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    var selectedDay = TimestampConvert.getDate(Timestamp(System.currentTimeMillis()))
+    var selectedDay = TimestampConvert.getDate(System.currentTimeMillis())
     private var eventAdapterList = mutableListOf<Event>()
     val eventAdapter = EventAdapter(eventAdapterList) {event: Event, position: Int ->
         val eventAddIntent = Intent(this, EventAdd::class.java)

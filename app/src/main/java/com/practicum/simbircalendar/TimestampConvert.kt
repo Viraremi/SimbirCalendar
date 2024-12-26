@@ -7,23 +7,23 @@ import java.util.Date
 
 object TimestampConvert { //Singleton класс отвечающий за получения строк с датой из Timestamp
     @SuppressLint("SimpleDateFormat")
-    fun getDate(stamp: Timestamp): String {
+    fun getDate(stamp: Long): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val dataTime = Date(stamp.time)
+        val dataTime = Date(stamp)
         return sdf.format(dataTime)
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getHours(stamp: Timestamp): String {
+    fun getHours(stamp: Long): String {
         val sdf = SimpleDateFormat("HH")
-        val dataTime = Date(stamp.time)
+        val dataTime = Date(stamp)
         return sdf.format(dataTime)
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getTime(stamp: Timestamp): String {
+    fun getTime(stamp: Long): String {
         val sdf = SimpleDateFormat("HH:mm")
-        val dataTime = Date(stamp.time)
+        val dataTime = Date(stamp)
         return sdf.format(dataTime)
     }
 }
