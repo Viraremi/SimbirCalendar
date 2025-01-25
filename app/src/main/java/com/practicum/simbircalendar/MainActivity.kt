@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         eventRecycler.adapter = eventAdapter
         eventRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        //Обработка выбора даты на календаре
+        //Обработка выбора даты на календареалалал
         clndr.setOnDateChangeListener { _, year, month, dayOfMonth ->
             selectedDay = LocalDate.of(year, month+1, dayOfMonth).toString() //Получаем выбранный день
             noEventListCreate(selectedDay) //Обновляем список пустых дел для получения Timestamp для каждого часа выбранного дня
